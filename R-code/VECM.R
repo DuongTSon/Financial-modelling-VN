@@ -18,10 +18,10 @@ library(vars)
 library(urca)
 
 # Oil monthly data
-oil<-read.csv("oilprice.csv",header=T)
+oil<-load("Oilprice.rda")
 month<-as.yearmon(oil[,1],"%Y M%m")
 oil<-xts(oil[,2],order.by=month)
-load("data.rda")
+
 
 ## Convert to quarterly data
 q<-rep(0,length(seq(1,length(oil),by=3)))

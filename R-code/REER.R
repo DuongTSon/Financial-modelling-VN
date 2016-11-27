@@ -21,6 +21,9 @@ library(xts)
 ## dimension2}+{item2 from dimension2}+{item M from dimension2}?startPeriod={start
 ## date}&endPeriod={end date}
 
+
+####################################################
+# Import data from IMF server
 counterpart.area<-c("US","1C_995","CN","JP","KR","SG","TW","TH")
 
 indicators<-c("TXG_FOB_USD","TMG_CIF_USD")
@@ -62,21 +65,40 @@ for (i in indicators){
   assign(i,d)
 }
 
+## Save trade data
 export<-TXG_FOB_USD
 import<-TMG_CIF_USD
 total<-(export[,-c(1)]+import[,-c(1)])
 total.trade<-data.frame(year=as.numeric(export[,1]),total)
+write.table(total.trade,file="trade.csv",row.names=FALSE)
+remove(list=ls())
+#####################################################
 
+
+#####################################################
+# Import data from csv file
+total.trade<-read.csv("trade.csv",header=TRUE,sep="")
+
+# Assign weights by year
+weight<-total.trade[,-c(1)]/rowSums(total.trade[,-c(1)])
+
+avg_weight<-data.frame(year=as.numeric(total.trade[,1])+1,weight)
+
+avg_weight<-subset(avg_weight,avg_weight$year>=2000)
+
+for (i in 1:nrow(avg_weight)) for (j in 2:ncol(avg_weight)){
+  avg_weight[i,j]<-mean(weight[i:i+4,j-1])
+}
+####################################################
+
+
+###################################################
+# Update exchange rate database
+
+stored_rate<-read.csv("exrate.csv",header=T,sep="")
+stored_rate$date<-as.Date(stored_rate$date,format="%Y-%m-%d")
 
 ## retrieve exchange rate data from google spreadsheet
-
-library(googlesheets)
-library(dplyr)
-mysheets<-gs_ls()
-mysheets %>% glimpse()
-gap<-gs_title("Exchange rate")
-gs_ws_ls(gap)
-exrate<-gap %>% gs_read(ws="Exrate")
 
 library(XML)
 tf<-tempfile(tmpdir=tdir<-tempdir())
@@ -90,13 +112,84 @@ rate<-as.data.frame(exrate)
 rate<-rate[,-c(1)]
 colnames(rate)<-as.character(rate[1,])
 rate<-rate[-c(1),]
-rate<-rate[!grepl("#N/A",rate$usdkrw),]
+rate[rate=="#N/A"]=NA
+rate<-na.omit(rate)
+
 ##convert to Vietnam timezone
 rate$date<-as.Date(rate$date,format="%m/%d/%Y")+1
 rate[,2:ncol(rate)]<-apply(rate[,2:ncol(rate)],2,as.numeric)
 rate<-rate[!grepl("Saturday",weekdays(rate$date)) & !grepl("Sunday",weekdays(rate$date)) ,]
 
+final<-rbind(stored_rate,rate)
 
+# save new exchaange rate data
+write.table(final,file="exrate.csv",row.names=FALSE)
+remove(htmlurl,rawhtml,exrate,rate)
+#####################################################
+
+rate<-stored_rate
+
+# Convert currency against VND
+eur<-rate$usdvnd*rate$eurusd
+others<-rate$usdvnd/rate[,-c(1:3)]
+vnd<-data.frame(rate$date,1/rate$usdvnd,1/eur,1/others)
+colnames(vnd)<-c("date","usd","eur","cny","jpy","krw","sgd","twd","thb")
+
+rate_change<-vnd[-c(1),-c(1)]/vnd[-c(nrow(vnd)),-c(1)]
+rate_change<-data.frame(date=vnd$date[-c(1)],rate_change)
+
+rate_weight<-rate_change
+rate_weight$date<-format(rate_weight$date,"%Y")
+colnames(rate_weight)[1]<-"year"
+
+# Match weight for rate
+library(plyr)
+join<-join(rate_weight,avg_weight,by="year")
+
+rate_weight<-join[,c(10:ncol(join))]
+remove(join)
+
+vector_power<-function(y,x){
+  if (length(y)!=length(x))
+    stop("Vectors need to have the same length",call.=TRUE)
+  else{
+    result<-c(1:length(y))
+    for (i in 1:length(y)){
+      result[i]<-y[i]^x[i]
+      }
+  }
+  remove(i)
+  return(result)
+}
+
+# Raise rate change by weight power
+power<-matrix(data=NA,nrow=nrow(rate_change),ncol=ncol(rate_weight))
+
+for (i in 1:nrow(rate_change)){
+  power[i,]<-vector_power(as.numeric(rate_change[i,-c(1)]),as.numeric(rate_weight[i,]))
+}
+
+
+# NEER index
+index<-apply(power,1,prod)
+index<-c(1,index)
+
+neer<-index
+for (i in 2:length(index)){
+  neer[i]<-neer[i-1]*index[i]
+}
+
+output<-data.frame(date=rate$date,neer=neer*100,usd=rate$usdvnd,cny=rate$usdcny,eur=rate$eurusd,jpy=rate$usdjpy)
+write.table(output,file="neer.csv",row.names=FALSE)
+
+# Plot results
+
+library(googleVis)
+library(reshape2)
+neer<-melt(neer,id="date")
+
+neer_gvis<-gvisAnnotationChart(neer,datevar="date",numvar="value",idvar="variable")
+plot(neer_gvis)
 
 
 
