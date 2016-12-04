@@ -1,4 +1,8 @@
-#ARFIMA-GARCH model for interbank interest rate
+
+###################################################
+# This model would forecast overnight interest rate
+# Because the interest rate series exibit 
+# I use ARFIMA-GARCH model for interbank interest rate
 #I use ARFIMA instead of ARIMA because the long memory property of interbank interest rate.
 #I test for long memory by function acf()
 
@@ -11,7 +15,7 @@ library(scales)
 
 
 #Import data
-data<-read.csv("Interbankrate.csv",header=T)
+data<-read.csv("../Data/Interbankrate.csv",header=T)
 date<-as.Date(data[,1],"%d-%b-%y")
 on<-as.numeric(data[,2])
 on.data<-xts(on,date)
