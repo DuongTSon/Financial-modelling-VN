@@ -1,6 +1,6 @@
 #############################################################
 #
-# Effective exchange rate daily
+# Daily effective exchange rate
 # This file contains two parts: data downloading section and algorithm part
 # Data source: OECD statistics; IMF Direction of Trade Statistics
 # Algorithm: Bank of England method published at May 1999 quarterly bulettin
@@ -74,14 +74,14 @@ if (year>2016) {
     import<-TMG_CIF_USD
     total<-(export[,-c(1)]+import[,-c(1)])
     total.trade<-data.frame(year=as.numeric(export[,1]),total)
-    write.table(total.trade,file="trade.csv",row.names=FALSE)
+    write.table(total.trade,file="../Data/trade.csv",row.names=FALSE)
     remove(list=ls())
     #####################################################
   }
 } else {
   #####################################################
   # Import data from csv file
-  total.trade<-read.csv("trade.csv",header=TRUE,sep="")
+  total.trade<-read.csv("../Data/trade.csv",header=TRUE,sep="")
   
   # Assign weights by year
   weight<-total.trade[,-c(1)]/rowSums(total.trade[,-c(1)])
@@ -123,10 +123,10 @@ rate[,2:ncol(rate)]<-apply(rate[,2:ncol(rate)],2,as.numeric)
 rate<-rate[!grepl("Saturday",weekdays(rate$date)) & !grepl("Sunday",weekdays(rate$date)) ,]
 
 ## Compare new data with existing database
-data<-read.csv("neer.csv",header=TRUE,sep="")
+data<-read.csv("../Data/neer.csv",header=TRUE,sep="")
 data$date<-as.Date(data$date,format="%Y-%m-%d")
 
-stored_rate<-read.csv("exrate.csv",header=T,sep="")
+stored_rate<-read.csv("../Data/exrate.csv",header=T,sep="")
 stored_rate$date<-as.Date(stored_rate$date,format="%Y-%m-%d")
 
 if (max(data$date)<max(rate$date)){
@@ -134,7 +134,7 @@ if (max(data$date)<max(rate$date)){
   final<-merge(stored_rate,rate,all=TRUE)
   
   # save new exchaange rate data
-  write.table(final,file="exrate.csv",row.names=FALSE)
+  write.table(final,file="../Data/exrate.csv",row.names=FALSE)
   remove(htmlurl,rawhtml,exrate,rate,stored_rate)
   #####################################################
   
@@ -195,7 +195,7 @@ if (max(data$date)<max(rate$date)){
   output<-data.frame(date=rate$date,neer=neer*100,usd=rate$usdvnd,cny=rate$usdcny,eur=rate$eurusd,jpy=rate$usdjpy)
   output<-merge(data,output,all=TRUE)
   
-  write.table(output,file="neer.csv",row.names=FALSE)
+  write.table(output,file="../Data/neer.csv",row.names=FALSE)
   neer<-output[,1:2]
   
 } else {
@@ -204,6 +204,7 @@ if (max(data$date)<max(rate$date)){
 
 # Plot results
 library(reshape2)
+library(googleVis)
 neer<-melt(neer,id="date")
 neer_gvis<-gvisAnnotationChart(neer,datevar="date",numvar="value",idvar="variable")
 plot(neer_gvis)

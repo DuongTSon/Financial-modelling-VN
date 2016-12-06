@@ -1,10 +1,10 @@
 
 ###################################################
 # This model would forecast overnight interest rate
-# Because the interest rate series exibit 
-# I use ARFIMA-GARCH model for interbank interest rate
-#I use ARFIMA instead of ARIMA because the long memory property of interbank interest rate.
-#I test for long memory by function acf()
+# I use ARFIMA instead of ARIMA because the long memory property of interbank interest rate.
+# I test for long memory by function acf()
+# Some of my code was from Quantstart.com
+###################################################
 
 #import library
 library(rugarch)
