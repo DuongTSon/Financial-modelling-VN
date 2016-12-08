@@ -33,4 +33,10 @@ This type of model only use past values of one variable to predict future values
 This type of model is ubiquitous in macroeconomic researchs. Two simplest models are Vector autoregressive model (VAR) and Vector Error Correction model (VECM). To use VAR you need stationary time series, which can be achieved by differences. In pratice, it is very common that data series are non stationary and cointegrated, so VECM could perform better at forecasting than VAR.
 
 ### Nominal effective exchange rate (NEER)
-Watching a currency in realtion with a basket of currencies can reveal whether the currency is relatively stronger or weaker. However, many developing country do not provide this kind of data. I have developed an application for this purpose. Although the code in this repository was written for Vietnam case, you can apply to another country as you wish by changing the country name on the first part.
+Watching a currency in relation with a basket of currencies can reveal whether the currency is relatively stronger or weaker. However, many developing country do not provide this kind of data. I have developed an application for this purpose. Although the code in this repository was written for Vietnam case, you can apply to another country as you wish by changing country names and currencies.
+
+The application have 2 parts:
+* Data feeds from IMF (DOTS database) and Google Finance (realtime exchange rate)
+To make a realtime exchange rate table like mine, you can use Google spreadsheet.
+* Algorithm
+There is no universal formula for NEER, organizations can produce different NEER values but trends are almost the same. In this application, I chose Bank of England method published at May 1999 quarterly bulettin.
