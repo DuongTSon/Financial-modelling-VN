@@ -29,11 +29,26 @@ The repository so far contains:
 
 #### Univariate time series models
 
-This type of model only use past values of one variable to predict future values . From my experience, univariate models perform better at forecasting high frequency time series. However, its power deteriorate quite quickly at long forecast horizon.
+This type of model only use past values of one variable to predict future values. The most famous model is ARIMA. From my experience, univariate models perform better at forecasting high frequency time series. However, its power deteriorate quite quickly at long forecast horizon.
+
+In practice, time series usually show long memory property, which means past values have long-lasting effects on future values. That property could make ARIMA model return poor forecast. Fortunately, ARFIMA model can fit those time series amazingly, and return far better forecast. You can see my model at R-code folder and modify it as you like.
+
 
 #### Multivariate time series models
 
 Multivariate model is ubiquitous in macroeconomic researchs. Two simplest models are Vector autoregressive model (VAR) and Vector Error Correction model (VECM). To use VAR you need stationary time series, which can be achieved by differences. In pratice, it is very common that data series are non stationary and cointegrated, so VECM could perform better at forecasting than VAR.
+
+VECM is very useful in analysing macroeconomics policy and forecasting. To apply it you need to do the following steps:
+
+1. Test whether your time series are stationary (Augmented Dicky Fuller test)
+2. Tes cointegration hypothesis (Johansen test)
+3. Find the optimal order of autoregression
+4. Estimate VAR model (VECM model if you find cointegrated among time series)
+5. Diagnostic test
+6. Make forecast or analyse impulse response fucntion(IRF)
+
+You can use my data and R codes to practice all those steps.
+
 
 ### Nominal effective exchange rate (NEER)
 
@@ -50,4 +65,6 @@ There is no universal formula for NEER, organizations can produce different NEER
 
 ### Forecast exchange rate using Artificial Neural Networks(ANN)
 
-ANN could improve exchange rate forecast accuracy considerably.
+This is my current project after I have found that ANN could improve exchange rate forecast accuracy considerably. I would update R-code soon.
+
+
