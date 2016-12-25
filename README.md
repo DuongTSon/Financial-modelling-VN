@@ -15,6 +15,12 @@ The repository so far contains:
 
 ### Arbitrage pricing theory and factor models
 
+What are factors that explain differences in return of assets?
+
+This question is the central theme in financial economics. There are two prominent theories are CAPM and APT. CAPM states that correlation with market returns explain asset returns. APT, on the other hand, claims that there are many factors affecting asset returns, and market return is only one factor. In practice, portfolio managers usually implement APT models because they could actively bet on factors which they understand most, and hedge factors they consider risky.
+
+How do we use factor models to solve real world problem?
+
 *Update soon*
 
 ### Asset allocation models
@@ -31,24 +37,23 @@ The repository so far contains:
 
 This type of model only use past values of one variable to predict future values. The most famous model is ARIMA. From my experience, univariate models perform better at forecasting high frequency time series. However, its power deteriorate quite quickly at long forecast horizon.
 
-In practice, time series usually show long memory property, which means past values have long-lasting effects on future values. That property could make ARIMA model return poor forecast. Fortunately, ARFIMA model can fit those time series amazingly, and return far better forecast. You can see my model at R-code folder and modify it as you like.
+In practice, time series usually show long memory property, which means past values have long-lasting effects on future values. That property could make ARIMA model return poor forecast. Fortunately, ARFIMA model can fit those time series, and make far better forecast. You can see my model at R-code folder and modify it as you like.
 
 
 #### Multivariate time series models
 
-Multivariate model is ubiquitous in macroeconomic researchs. Two simplest models are Vector autoregressive model (VAR) and Vector Error Correction model (VECM). To use VAR you need stationary time series, which can be achieved by differences. In pratice, it is very common that data series are non stationary and cointegrated, so VECM could perform better at forecasting than VAR.
+Multivariate models is ubiquitous in macroeconomic researchs. Two simplest models are Vector autoregressive model (VAR) and Vector Error Correction model (VECM). To use VAR, you need stationary time series which can be achieved by differences. In pratice, it is very common that data series are non stationary and cointegrated, so VECM could perform better at forecasting than VAR.
 
-VECM is very useful in analysing macroeconomics policy and forecasting. To apply it you need to do the following steps:
+To apply multivariate time series models, you need to do the following steps:
 
 1. Test whether your time series are stationary (Augmented Dicky Fuller test)
-2. Tes cointegration hypothesis (Johansen test)
+2. Test cointegration hypothesis (Johansen test)
 3. Find the optimal order of autoregression
-4. Estimate VAR model (VECM model if you find cointegrated among time series)
-5. Diagnostic test
-6. Make forecast or analyse impulse response fucntion(IRF)
+4. Estimate VAR model (VECM model if you find cointegrations among time series)
+5. Diagnostic tests
+6. Make forecast or analyse impulse response function(IRF)
 
 You can use my data and R codes to practice all those steps.
-
 
 ### Nominal effective exchange rate (NEER)
 
@@ -57,14 +62,18 @@ Watching a currency in relation with a basket of currencies can reveal whether t
 The application have 2 parts:
 * Data feeds from IMF (DOTS database) and Google Finance (realtime exchange rate)
 
-To make a realtime exchange rate table like mine, you can use Google spreadsheet.
+You can use Google spreadsheet to make a realtime exchange rate table like mine.
 
 * Algorithm
 
-There is no universal formula for NEER, organizations can produce different NEER values but trends are almost the same. In this application, I chose Bank of England method published at May 1999 quarterly bulettin.
+There is no universal formula for NEER, organizations can produce different NEER values but trends are not much different. In this application, I chose Bank of England method published at May 1999 quarterly bulettin.
+
+### Implicit currency weights
+
+In many emerging country, central banks tend to claims that they pegged their currencies to a basket of currency. However, they never disclosed weights of currencies in that baskets. Fortunately, econometrics could help us find out whether central banks pegged their currencies to a basket or USD only.
 
 ### Forecast exchange rate using Artificial Neural Networks(ANN)
 
-This is my current project after I have found that ANN could improve exchange rate forecast accuracy considerably. I would update R-code soon.
+This is my current project. I would update R-code soon.
 
 
