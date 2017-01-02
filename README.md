@@ -2,7 +2,7 @@
 
 This repository is created for sharing quantitative models which I have developed at a financial institution in Vietnam. Models are written in **R programming language**, some are built on **Visual Basics for Application (VBA)** and web applications are hosted on **shinyapps.io**. I share both data and R code so people interested in those models can test, modify or contribute to this project. All materials are free.
 
-Hope this project could foster free education in quantitative finance!
+I hope this project could foster free education in quantitative finance!
 
 ## Models
 The repository so far contains:
@@ -17,11 +17,12 @@ The repository so far contains:
 
 What are factors that explain differences in return of assets?
 
-This question is the central theme in financial economics. There are two prominent theories are CAPM and APT. CAPM states that correlation with market returns explain asset returns. APT, on the other hand, claims that there are many factors affecting asset returns, and market return is only one factor. In practice, portfolio managers usually implement APT models because they could actively bet on factors which they understand most, and hedge factors they consider risky.
+This question is a central theme in financial economics. There are two prominent theories are CAPM and APT. CAPM states that correlation with market returns explain asset returns. APT, on the other hand, claims that there are many factors affecting asset returns, and market return is only one factor. In practice, portfolio managers usually implement APT models because they could actively bet on factors which they understand most, and hedge factors they consider risky.
 
 How do we use factor models to solve real world problem?
 
-*Update soon*
+Fixed income trading desks extensively use factor models to hedge yield curve risks, which are changes in shape of yield curve. Factor models could help traders reduce or increase exposure to specific tenors on a yield curve. For instance, a trader is confident about his forecast of 5-year treasury yield but not sure about other tenors, he would use factor models to design his portfolio which has least exposure to other tenor's movements.
+
 
 ### Asset allocation models
 
@@ -29,7 +30,9 @@ How do we use factor models to solve real world problem?
 
 ### Interest rate models
 
-*Update soon*
+Assets and Liabilities management in banking industry require robust simulation of interest rate movement. The results are used for asset allocation decision in banks. Researchers have invented numerous kind of models, including both univariate and multivariate models. However, banks choose interest rate models depending on complexity of their balance sheet. Sophisticated models do not necessarily perform better than simple ones.
+
+In my experience, you should choose models based on realiability of your data. Bad data can ruin your effort.
 
 ### Time series forecast models
 
@@ -70,7 +73,7 @@ There is no universal formula for NEER, organizations can produce different NEER
 
 ### Implicit currency weights
 
-In many emerging country, central banks tend to claims that they pegged their currencies to a basket of currency. However, they never disclosed weights of currencies in that baskets. Fortunately, econometrics could help us find out whether central banks pegged their currencies to a basket or USD only.
+In many emerging country, central banks tend to claims that they pegged their currencies to a basket of currency. However, they never disclose weights of currencies in that baskets. That raise questions about inconsistency between central banks' talks and action. Fortunately, econometrics could help us find out whether central banks pegged their currencies to a basket or USD only.
 
 ### Forecast exchange rate using Artificial Neural Networks(ANN)
 
