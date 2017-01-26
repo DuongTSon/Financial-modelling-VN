@@ -1,4 +1,4 @@
-![alt text][logo](Image/rocket.png)
+![logo](Image/rocket.png)
 
 # Applied financial modelling
 
