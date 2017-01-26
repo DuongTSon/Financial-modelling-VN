@@ -1,3 +1,5 @@
+![alt text][logo](Image/rocket.png)
+
 # Applied financial modelling
 
 This repository is created for sharing quantitative models which I have developed at a financial institution in Vietnam. Models are written in **R programming language**, some are built on **Visual Basics for Application (VBA)** and web applications are hosted on **shinyapps.io**. I share both data and R code so people interested in those models can test, modify or contribute to this project. All materials are free.
@@ -15,18 +17,31 @@ The repository so far contains:
 
 ### Arbitrage pricing theory and factor models
 
-What are factors that explain differences in return of assets?
+**What are factors that explain differences in return of assets?**
 
 This question is a central theme in financial economics. There are two prominent theories are CAPM and APT. CAPM states that correlation with market returns explain asset returns. APT, on the other hand, claims that there are many factors affecting asset returns, and market return is only one factor. In practice, portfolio managers usually implement APT models because they could actively bet on factors which they understand most, and hedge factors they consider risky.
 
-How do we use factor models to solve real world problem?
+The equation of factor models are quite straightforward (Grinold, Kahn):
+$$r_{n}(t)=\sum_{k}X_{n,k}(t)f_{k}(t)+u_(n)(t)$$
 
-Fixed income trading desks extensively use factor models to hedge yield curve risks, which are changes in shape of yield curve. Factor models could help traders reduce or increase exposure to specific tenors on a yield curve. For instance, a trader is confident about his forecast of 5-year treasury yield but not sure about other tenors, he would use factor models to design his portfolio which has least exposure to other tenor's movements.
+where
+$$X_{n,k}(t)$$ = the exposure of an asset n to factor k (factor loading)
+$$r_{n}(t)$$ = the excess return on financial assets n
+$$f_{k}(t)$$ = the factor return to factor k 
+$$u_(n)(t)$$ = residual return cannot be explained by factor k
 
+**How do we use factor models to solve real world problem?**
+
+Fixed income trading desks extensively use factor models to hedge yield curve risks, which are changes in shape of yield curve. Factor models could help traders reduce or increase exposure to specific tenors on a yield curve. For instance, a trader is confident about his forecast of 5-year treasury yield but not sure about other tenors, he would use factor models to design his portfolio which has the least exposure to other tenor's movements.
+
+**To build a factor model, you should follow those steps below:**
+1. Determine factors: I choose tenor on yield curve as factors 
+2. Estimaste factor loading: the proportion of present values at a specific tenor is the factor loadings
+3. Regress asset returns against the estimated factor loading to obtain factor returns.
 
 ### Asset allocation models
 
-*Update soon*
+Asset allocation is an important topic in finance. Researchers around the world are continuously produce novel methods to find optimal allocations. Textbooks often start with mean-variance approach, which was invented by Markowitz long time ago. Unfortunately, it won't work in the real world. Instead, practitioners usually use models incorporated market portfolio because they consider the market contains vital information about the optimum. Black-Litterman model is quite popular for that reason.
 
 ### Interest rate models
 
@@ -73,7 +88,7 @@ There is no universal formula for NEER, organizations can produce different NEER
 
 ### Implicit currency weights
 
-In many emerging country, central banks tend to claims that they pegged their currencies to a basket of currency. However, they never disclose weights of currencies in that baskets. That raise questions about inconsistency between central banks' talks and action. Fortunately, econometrics could help us find out whether central banks pegged their currencies to a basket or USD only.
+In many emerging country, central banks tend to claims that they pegged their currencies to a basket of currency. However, they never disclose weights of currencies in that baskets. That scheme raise questions about inconsistency between central banks' talks and action. Fortunately, econometrics could help us find out whether central banks pegged their currencies to a basket or USD only.
 
 ### Forecast exchange rate using Artificial Neural Networks(ANN)
 
