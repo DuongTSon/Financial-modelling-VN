@@ -23,17 +23,7 @@ This question is a central theme in financial economics. There are two prominent
 
 The equation of factor models are quite straightforward (Grinold, Kahn):
 
-<img src="http://www.sciweavers.org/tex2img.php?eq=r_%7Bn%7D%28t%29%3D%5Csum_%7Bk%7DX_%7Bn%2Ck%7D%28t%29f_%7Bk%7D%28t%29%2Bu_%28n%29%28t%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="r_{n}(t)=\sum_{k}X_{n,k}(t)f_{k}(t)+u_(n)(t)" width="256" height="40" />
-
-where
-
-<img src="http://www.sciweavers.org/tex2img.php?eq=X_%7Bn%2Ck%7D%28t%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="X_{n,k}(t)" width="58" height="19" /> = the exposure of an asset n to factor k (factor loading)
-
-<img src="http://www.sciweavers.org/tex2img.php?eq=r_%7Bn%7D%28t%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="r_{n}(t)" width="42" height="18" /> = the excess return on financial assets n
-
-<img src="http://www.sciweavers.org/tex2img.php?eq=f_%7Bk%7D%28t%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="f_{k}(t)" width="42" height="18" /> = the factor return to factor k 
-
-<img src="http://www.sciweavers.org/tex2img.php?eq=u_%7Bn%7D%28t%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="u_{n}(t)" width="42" height="18" /> = residual return cannot be explained by factor k
+![factor model][logo](Image/factor_model.png)
 
 **How do we use factor models to solve real world problem?**
 
