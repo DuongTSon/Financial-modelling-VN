@@ -23,7 +23,7 @@ This question is a central theme in financial economics. There are two prominent
 
 The equation of factor models are quite straightforward (Grinold, Kahn):
 
-![factor model][logo](Image/factor_model.png)
+![factor model](Image/factor_model.png)
 
 **How do we use factor models to solve real world problem?**
 
