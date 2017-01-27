@@ -22,26 +22,29 @@ The repository so far contains:
 This question is a central theme in financial economics. There are two prominent theories are CAPM and APT. CAPM states that correlation with market returns explain asset returns. APT, on the other hand, claims that there are many factors affecting asset returns, and market return is only one factor. In practice, portfolio managers usually implement APT models because they could actively bet on factors which they understand most, and hedge factors they consider risky.
 
 The equation of factor models are quite straightforward (Grinold, Kahn):
-$$r_{n}(t)=\sum_{k}X_{n,k}(t)f_{k}(t)+u_(n)(t)$$
+
+<img src="http://www.sciweavers.org/tex2img.php?eq=r_%7Bn%7D%28t%29%3D%5Csum_%7Bk%7DX_%7Bn%2Ck%7D%28t%29f_%7Bk%7D%28t%29%2Bu_%28n%29%28t%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="r_{n}(t)=\sum_{k}X_{n,k}(t)f_{k}(t)+u_(n)(t)" width="256" height="40" />
 
 where
-$$X_{n,k}(t)$$ = the exposure of an asset n to factor k (factor loading)
-$$r_{n}(t)$$ = the excess return on financial assets n
-$$f_{k}(t)$$ = the factor return to factor k 
-$$u_(n)(t)$$ = residual return cannot be explained by factor k
+
+<img src="http://www.sciweavers.org/tex2img.php?eq=X_%7Bn%2Ck%7D%28t%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="X_{n,k}(t)" width="58" height="19" /> = the exposure of an asset n to factor k (factor loading)
+<img src="http://www.sciweavers.org/tex2img.php?eq=r_%7Bn%7D%28t%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="r_{n}(t)" width="42" height="18" /> = the excess return on financial assets n
+<img src="http://www.sciweavers.org/tex2img.php?eq=f_%7Bk%7D%28t%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="f_{k}(t)" width="40" height="19" /> = the factor return to factor k 
+<img src="http://www.sciweavers.org/tex2img.php?eq=u_%7Bn%7D%28t%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="u_{n}(t)" width="44" height="18" /> = residual return cannot be explained by factor k
 
 **How do we use factor models to solve real world problem?**
 
-Fixed income trading desks extensively use factor models to hedge yield curve risks, which are changes in shape of yield curve. Factor models could help traders reduce or increase exposure to specific tenors on a yield curve. For instance, a trader is confident about his forecast of 5-year treasury yield but not sure about other tenors, he would use factor models to design his portfolio which has the least exposure to other tenor's movements.
+Fixed income trading desks like factor models because it help them hedge yield curve risks, which are changes in shape of yield curve. Factor models could help traders reduce or increase exposure to specific tenors on a yield curve. For instance, a trader is confident about his forecast of 5-year treasury yield but not sure about other tenors, he would use factor models to design his portfolio which has the least exposure to other tenor's movements.
 
 **To build a factor model, you should follow those steps below:**
-1. Determine factors: I choose tenor on yield curve as factors 
-2. Estimaste factor loading: the proportion of present values at a specific tenor is the factor loadings
-3. Regress asset returns against the estimated factor loading to obtain factor returns.
+
+1. __Determine factors:__ I choose tenor on yield curve as factors 
+2. __Estimaste factor loading:__ the proportion of present values at a specific tenor is the factor loadings
+3. __Regress asset returns against the estimated factor loadings to obtain factor returns.__
 
 ### Asset allocation models
 
-Asset allocation is an important topic in finance. Researchers around the world are continuously produce novel methods to find optimal allocations. Textbooks often start with mean-variance approach, which was invented by Markowitz long time ago. Unfortunately, it won't work in the real world. Instead, practitioners usually use models incorporated market portfolio because they consider the market contains vital information about the optimum. Black-Litterman model is quite popular for that reason.
+Asset allocation is an important topic in finance. Researchers around the world are continuously produce novel methods to find optimal allocations. Textbooks often start with mean-variance approach, which was invented by Markowitz long time ago. Unfortunately, it won't work in the real world. Instead, practitioners usually use models incorporated market portfolio because they believe the market contains vital information about the optimum. Black-Litterman model is quite popular for that reason.
 
 ### Interest rate models
 
@@ -89,6 +92,36 @@ There is no universal formula for NEER, organizations can produce different NEER
 ### Implicit currency weights
 
 In many emerging country, central banks tend to claims that they pegged their currencies to a basket of currency. However, they never disclose weights of currencies in that baskets. That scheme raise questions about inconsistency between central banks' talks and action. Fortunately, econometrics could help us find out whether central banks pegged their currencies to a basket or USD only.
+
+This is the model output after I regressed VND value against 8 currencies in the basket that the central bank announced:
+
+    ## 
+    ## Call:
+    ## lm(formula = vnd ~ ., data = rate.2016)
+    ## 
+    ## Residuals:
+    ##        Min         1Q     Median         3Q        Max 
+    ## -0.0094476 -0.0004679  0.0000618  0.0005273  0.0099238 
+    ## 
+    ## Coefficients:
+    ##               Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept) -1.778e-05  1.213e-04  -0.147   0.8835    
+    ## usd          9.737e-01  9.739e-02   9.998   <2e-16 ***
+    ## eur          8.154e-02  7.003e-02   1.164   0.2454    
+    ## cny          7.804e-02  4.008e-02   1.947   0.0527 .  
+    ## jpy         -1.554e-02  1.851e-02  -0.840   0.4019    
+    ## krw          1.718e-02  3.261e-02   0.527   0.5988    
+    ## sgd         -1.183e-02  5.452e-02  -0.217   0.8285    
+    ## twd         -5.336e-02  4.866e-02  -1.097   0.2739    
+    ## thb          1.583e-02  5.727e-02   0.276   0.7825    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.001913 on 245 degrees of freedom
+    ## Multiple R-squared:  0.6132, Adjusted R-squared:  0.6006 
+    ## F-statistic: 48.55 on 8 and 245 DF,  p-value: < 2.2e-16
+
+You can easily see the p-value of USD is very small while others are above 5%, hence you can conclude that VND was mainly affected by the fluctuation of US dollar.
 
 ### Forecast exchange rate using Artificial Neural Networks(ANN)
 
