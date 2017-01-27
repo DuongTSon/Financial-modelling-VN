@@ -28,9 +28,12 @@ The equation of factor models are quite straightforward (Grinold, Kahn):
 where
 
 <img src="http://www.sciweavers.org/tex2img.php?eq=X_%7Bn%2Ck%7D%28t%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="X_{n,k}(t)" width="58" height="19" /> = the exposure of an asset n to factor k (factor loading)
+
 <img src="http://www.sciweavers.org/tex2img.php?eq=r_%7Bn%7D%28t%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="r_{n}(t)" width="42" height="18" /> = the excess return on financial assets n
-<img src="http://www.sciweavers.org/tex2img.php?eq=f_%7Bk%7D%28t%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="f_{k}(t)" width="40" height="19" /> = the factor return to factor k 
-<img src="http://www.sciweavers.org/tex2img.php?eq=u_%7Bn%7D%28t%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="u_{n}(t)" width="44" height="18" /> = residual return cannot be explained by factor k
+
+<img src="http://www.sciweavers.org/tex2img.php?eq=f_%7Bk%7D%28t%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="f_{k}(t)" width="42" height="18" /> = the factor return to factor k 
+
+<img src="http://www.sciweavers.org/tex2img.php?eq=u_%7Bn%7D%28t%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="u_{n}(t)" width="42" height="18" /> = residual return cannot be explained by factor k
 
 **How do we use factor models to solve real world problem?**
 
