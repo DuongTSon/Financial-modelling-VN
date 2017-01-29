@@ -27,7 +27,7 @@ The equation of factor models are quite straightforward (Grinold, Kahn):
 
 **How do we use factor models to solve real world problem?**
 
-Fixed income trading desks like factor models because it help them hedge yield curve risks, which are changes in shape of yield curve. Factor models could help traders reduce or increase exposure to specific tenors on a yield curve. For instance, a trader is confident about his forecast of 5-year treasury yield but not sure about other tenors, he would use factor models to design his portfolio which has the least exposure to other tenor's movements.
+Fixed income trading desks like factor models because it helps them hedge yield curve risks, which are changes in shape of yield curve. Factor models could help traders reduce or increase exposure to specific tenors on a yield curve. For instance, a trader is confident about his forecast of 5-year treasury yield but not sure about other tenors, he would use factor models to design his portfolio which has the least exposure to other tenor's movements.
 
 **To build a factor model, you should follow those steps below:**
 
@@ -37,13 +37,20 @@ Fixed income trading desks like factor models because it help them hedge yield c
 
 ### Asset allocation models
 
-Asset allocation is an important topic in finance. Researchers around the world are continuously produce novel methods to find optimal allocations. Textbooks often start with mean-variance approach, which was invented by Markowitz long time ago. Unfortunately, it won't work in the real world. Instead, practitioners usually use models incorporated market portfolio because they believe the market contains vital information about the optimum. Black-Litterman model is quite popular for that reason.
+Asset allocation is an important topic in finance. Researchers around the world continuously invent novel methods to find optimal allocations. Textbooks often start with mean-variance approach, which was invented by Markowitz long time ago. Unfortunately, it won't work in the real world. Instead, practitioners usually use models incorporated market portfolio because they believe the market contains vital information about the optimum. Black-Litterman model is quite popular for that reason.
 
 ### Interest rate models
 
-Assets and Liabilities management in banking industry require robust simulation of interest rate movement. The results are used for asset allocation decision in banks. Researchers have invented numerous kind of models, including both univariate and multivariate models. However, banks choose interest rate models depending on complexity of their balance sheet. Sophisticated models do not necessarily perform better than simple ones.
+Assets and Liabilities management in banking industry require robust simulation of interest rate movement. The results are used for asset allocation decision in banks. Researchers have invented numerous kind of models, including both univariate and multivariate models. However, banks choose interest rate models depending on complexity of their balance sheet. Sophisticated models do not necessarily perform better than simple ones. In my experience, you should choose models based on realiability of your data. Bad data can ruin your effort.
 
-In my experience, you should choose models based on realiability of your data. Bad data can ruin your effort.
+In Excel-VBA folder, you could find a simple example of interest rate modelling. I estimated parameters of [Cox-Ingersoll-Ross (CIR) model](https://en.wikipedia.org/wiki/Cox%E2%80%93Ingersoll%E2%80%93Ross_model) to simulate future interest rate paths. CIR model can produce estimated yield curves but not accurate. Therefore, CIR model is used mostly for modelling fluctuation of a tenor on yield curves.
+
+To estmitmate CIR model, you can use regression method of MLE (maximum likelihood estimation) method. Personally, I prefer MLE because I can easily implement it on Excel. You can do the estimation with the following steps:
+
+1. Collect the interest rate data (most liquid tenor)
+2. Calculate likelihood function
+3. Use Solver in Excel to find the optimal parameters
+4. Simulate interest rate paths with those parameters
 
 ### Time series forecast models
 
@@ -76,15 +83,15 @@ Watching a currency in relation with a basket of currencies can reveal whether t
 The application have 2 parts:
 * Data feeds from IMF (DOTS database) and Google Finance (realtime exchange rate)
 
-You can use Google spreadsheet to make a realtime exchange rate table like mine.
+	You can use Google spreadsheet to make a realtime exchange rate table like mine.
 
 * Algorithm
 
-There is no universal formula for NEER, organizations can produce different NEER values but trends are not much different. In this application, I chose Bank of England method published at May 1999 quarterly bulettin.
+	There is no universal formula for NEER, organizations can produce different NEER values but trends are not much different. In this application, I chose Bank of England method published at May 1999 quarterly bulettin.
 
 ### Implicit currency weights
 
-In many emerging country, central banks tend to claims that they pegged their currencies to a basket of currency. However, they never disclose weights of currencies in that baskets. That scheme raise questions about inconsistency between central banks' talks and action. Fortunately, econometrics could help us find out whether central banks pegged their currencies to a basket or USD only.
+In many emerging country, central banks tend to claim that they pegged their currencies to a basket of currency. However, they never disclose weights of currencies in that baskets. That scheme raise questions about inconsistency between central banks' talks and action. Fortunately, econometrics could help us find out whether central banks pegged their currencies to a basket or USD only.
 
 This is the model output after I regressed VND value against 8 currencies in the basket that the central bank announced:
 
